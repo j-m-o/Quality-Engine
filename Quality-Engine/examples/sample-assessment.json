@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "issue": {
+    "key": "APP-1427",
+    "summary": "Let signed-in users update email notification preferences",
+    "product": "Customer Portal"
+  },
+  "assessedAt": "2026-10-26T12:00:00-05:00",
+  "fields": {
+    "featureQualityReadinessScore": 71,
+    "featureRiskLevel": "Medium",
+    "testCoverageLevel": "Partial",
+    "qeEffortEstimate": "Medium",
+    "automationRoiLevel": "High",
+    "coverageRecommendation": "Add targeted tests"
+  },
+  "assessmentConfidence": "Medium",
+  "assessmentStatus": "Provisional",
+  "readinessComponents": {
+    "requirementsAndAcceptance": 19,
+    "testabilityAndObservability": 16,
+    "coverageAndRegression": 10,
+    "risksAndDependencies": 14,
+    "qePlanAndOwnership": 12
+  },
+  "qualitySummary": "The fictional ticket defines a testable preference workflow and a meaningful authorization boundary. The sample inventory includes display-of-current-setting coverage but does not verify save persistence or cross-user access. Additional API and error handling details are needed before execution planning.",
+  "keyRisks": [
+    "A changed preference may not persist after reload.",
+    "An authorization mistake could allow cross-user preference changes."
+  ],
+  "coverageEvidence": [
+    {
+      "description": "Synthetic sample TEST-044 verifies display of the current preference, but does not assert save persistence.",
+      "sourceType": "Test inventory",
+      "reference": "TEST-044"
+    },
+    {
+      "description": "Synthetic sample TEST-011 verifies sign-in, not feature-specific behavior.",
+      "sourceType": "Test inventory",
+      "reference": "TEST-011"
+    }
+  ],
+  "testingRecommendations": [
+    "Verify saved preference persists across reload.",
+    "Validate a user cannot update another user’s preference.",
+    "Clarify API error response and failed-save UI behavior."
+  ],
+  "automationRecommendations": [
+    "Add focused persistence and authorization regression tests using a stable test data fixture."
+  ],
+  "missingInformation": [
+    "Define the preference update API contract and failed-save behavior.",
+    "Confirm test data owner and release timeline."
+  ],
+  "finalRecommendation": "Refine the missing failure criteria, then add targeted automated checks before considering the feature test-ready.",
+  "notes": "Synthetic example for portfolio demonstration; the score is an illustrative application of the proposed rubric, not production evidence."
+}

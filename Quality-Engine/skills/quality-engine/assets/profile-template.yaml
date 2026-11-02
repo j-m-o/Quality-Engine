@@ -1,0 +1,51 @@
+# quality-engine.profile.yaml
+# Save this next to your code (repository root) or inside the skill's references/ folder as profile.yaml.
+# Leave anything you do not use empty. Quality Engine only connects what is listed here.
+# Never put passwords, tokens or API keys in this file. Use connector sign-in or environment variables.
+
+version: 1
+
+# If true, Quality Engine refuses to assess without a work item. Default false.
+require_work_item: false
+
+# status is one of: connected, available, manual
+tools:
+  issue_tracker:      { vendor: "", status: manual, project: "" }
+  source_control:     { vendor: "", status: manual, repository: "" }
+  ci:                 { vendor: "", status: manual }
+  # For mabl: vendor "mabl". Reached by the hosted cloud MCP server and the mabl CLI only. Workspace, application and environment choices stay with mabl's own setup skill (mabl-init).
+  test_platform:      { vendor: "", status: manual }
+  test_management:    { vendor: "", status: manual, project: "" }
+  error_tracking:     { vendor: "", status: manual, project: "" }
+  observability:      { vendor: "", status: manual }
+  product_analytics:  { vendor: "", status: manual }
+  incident_management: { vendor: "", status: manual }
+  chat:               { vendor: "", status: manual, channel: "" }
+
+# Where the product or module name lives on a work item (field name or label). Optional.
+module_field: ""
+
+# Map each module to how its tests are labelled and which services emit its runtime signals.
+# Runtime evidence is only used for modules that have services listed here. No guessing.
+modules:
+  - name: ""
+    test_labels: []
+    services: []
+
+# Defaults, change to match your release cadence.
+windows:
+  runtime_signals_days: 30
+  baseline_days: 30
+  recent_test_runs: 3
+
+# Allowed values: work_item_comment, work_item_fields, chat_message, test_management, pull_request_comment
+# Default is empty, which means read-only.
+write_back:
+  enabled: []
+
+# Optional notification rules. Used only if chat_message is enabled.
+notify:
+  channel: ""
+  escalate_to: ""
+  escalate_after_triggers: 3
+  escalate_window_hours: 4

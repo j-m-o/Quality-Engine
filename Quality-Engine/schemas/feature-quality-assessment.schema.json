@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/feature-quality-assessment.schema.json",
+  "title": "Feature Quality Assessment",
+  "description": "Vendor-neutral QE analysis contract. Null readiness score means not assessed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "issue",
+    "assessedAt",
+    "fields",
+    "assessmentConfidence",
+    "assessmentStatus",
+    "readinessComponents",
+    "qualitySummary",
+    "keyRisks",
+    "coverageEvidence",
+    "testingRecommendations",
+    "automationRecommendations",
+    "missingInformation",
+    "finalRecommendation"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "key",
+        "summary"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "product": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "assessedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "featureQualityReadinessScore",
+        "featureRiskLevel",
+        "testCoverageLevel",
+        "qeEffortEstimate",
+        "automationRoiLevel",
+        "coverageRecommendation"
+      ],
+      "properties": {
+        "featureQualityReadinessScore": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "featureRiskLevel": {
+          "enum": [
+            "Low",
+            "Medium",
+            "High",
+            "Critical"
+          ]
+        },
+        "testCoverageLevel": {
+          "enum": [
+            "Strong",
+            "Partial",
+            "Weak",
+            "Missing",
+            "Unknown"
+          ]
+        },
+        "qeEffortEstimate": {
+          "enum": [
+            "Low",
+            "Medium",
+            "High",
+            "Undetermined"
+          ]
+        },
+        "automationRoiLevel": {
+          "enum": [
+            "Low",
+            "Medium",
+            "High",
+            "Undetermined"
+          ]
+        },
+        "coverageRecommendation": {
+          "enum": [
+            "Maintain existing",
+            "Update existing",
+            "Add targeted tests",
+            "Expand regression coverage",
+            "Investigate coverage first"
+          ]
+        }
+      }
+    },
+    "assessmentConfidence": {
+      "enum": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    "assessmentStatus": {
+      "enum": [
+        "Provisional",
+        "Evidence-supported",
+        "Not assessed"
+      ]
+    },
+    "readinessComponents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementsAndAcceptance",
+        "testabilityAndObservability",
+        "coverageAndRegression",
+        "risksAndDependencies",
+        "qePlanAndOwnership"
+      ],
+      "properties": {
+        "requirementsAndAcceptance": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 25
+        },
+        "testabilityAndObservability": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 20
+        },
+        "coverageAndRegression": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 20
+        },
+        "risksAndDependencies": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 20
+        },
+        "qePlanAndOwnership": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 15
+        }
+      }
+    },
+    "qualitySummary": {
+      "type": "string"
+    },
+    "keyRisks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coverageEvidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "description",
+          "sourceType"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "sourceType": {
+            "enum": [
+              "Test inventory",
+              "Execution record",
+              "Requirement",
+              "Other"
+            ]
+          },
+          "reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "testingRecommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automationRecommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "finalRecommendation": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

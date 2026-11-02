@@ -1,0 +1,20 @@
+flowchart TD
+  A[Work item, bug, PR or feature] --> B[Quality Engine]
+  B --> C{Profile saved?}
+  C -- No --> D[Setup interview: which tools do you use?]
+  D --> E[Discover connectors, MCP, CLI or paste route]
+  E --> F[Connection table and profile]
+  C -- Yes --> G[Gather evidence once, read-only]
+  F --> G
+  G --> H[Evidence packet with provenance]
+  H --> I[Coverage Review]
+  I --> J[QE Analysis]
+  J --> K[Snapshot and report]
+  K --> L{Write-back enabled and confirmed?}
+  L -- Yes --> M[Comment, fields, chat, test management]
+  L -- No --> N[Read-only result]
+  H -. On request .-> O[QE Planning and Test Design]
+  H -. On request .-> P[Security Review]
+  H -. On request .-> Q[Accessibility Review]
+  H -. On request .-> R[Incident Intelligence]
+  H -. On request .-> S[Metrics Intelligence]
