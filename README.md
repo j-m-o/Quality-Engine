@@ -17,14 +17,14 @@ I also wanted it to answer a question most test tools skip: is this a poor area 
 
 | Piece | Role | Runs |
 | --- | --- | --- |
-| [**Quality Engine**](skills/quality-engine/SKILL.md) | Setup, tool access, evidence gathering, routing, report, gated write-back | Always |
-| [Coverage Review](skills/coverage-review/SKILL.md) | What behavior is demonstrably covered, and what is not? | Core |
-| [QE Analysis](skills/qe-analysis/SKILL.md) | Is this ready, what could go wrong, where should QE invest? | Core |
-| [QE Planning and Test Design](skills/qe-planning-test-design/SKILL.md) | Which scenarios and cases will produce meaningful confidence? | On request |
-| [Security Review](skills/security-review/SKILL.md) | What security and privacy controls should be verified? | On request |
-| [Accessibility Review](skills/accessibility-review/SKILL.md) | What inclusive-interaction risks need validation? | On request |
-| [Incident Intelligence](skills/incident-intelligence/SKILL.md) | What prior defects, incidents or error history change the picture? | On request, or when the question is "is this area risky" |
-| [Metrics Intelligence](skills/metrics-intelligence/SKILL.md) | How will we know the feature and delivery are healthy? | On request |
+| [**Quality Engine**](Quality-Engine/skills/quality-engine/SKILL.md) | Setup, tool access, evidence gathering, routing, report, gated write-back | Always |
+| [Coverage Review](Quality-Engine/skills/coverage-review/SKILL.md) | What behavior is demonstrably covered, and what is not? | Core |
+| [QE Analysis](Quality-Engine/skills/qe-analysis/SKILL.md) | Is this ready, what could go wrong, where should QE invest? | Core |
+| [QE Planning and Test Design](Quality-Engine/skills/qe-planning-test-design/SKILL.md) | Which scenarios and cases will produce meaningful confidence? | On request |
+| [Security Review](Quality-Engine/skills/security-review/SKILL.md) | What security and privacy controls should be verified? | On request |
+| [Accessibility Review](Quality-Engine/skills/accessibility-review/SKILL.md) | What inclusive-interaction risks need validation? | On request |
+| [Incident Intelligence](Quality-Engine/skills/incident-intelligence/SKILL.md) | What prior defects, incidents or error history change the picture? | On request, or when the question is "is this area risky" |
+| [Metrics Intelligence](Quality-Engine/skills/metrics-intelligence/SKILL.md) | How will we know the feature and delivery are healthy? | On request |
 
 Quality Engine is the **catalyst**: it holds the tool access and makes the decisions. The seven specialists only analyze the evidence packet they are handed, so they can never write to a tracker, test platform or chat tool.
 
@@ -39,11 +39,11 @@ No vendor is assumed. On first use Quality Engine asks, in a few multiple-choice
 - Product analytics and incidents: Amplitude, incident.io, Mixpanel, Opsgenie, PagerDuty, PostHog, Segment
 - Chat: Slack, Microsoft Teams
 
-Then it asks how you want to connect them: **show me the steps** (a checklist per tool), **walk me through it** (one tool at a time, with a check after each), **run the vendor's own setup skill** where one exists, or **skip and paste evidence**. The [connect guide](skills/quality-engine/references/connect-guide.md) holds the plain-language steps.
+Then it asks how you want to connect them: **show me the steps** (a checklist per tool), **walk me through it** (one tool at a time, with a check after each), **run the vendor's own setup skill** where one exists, or **skip and paste evidence**. The [connect guide](Quality-Engine/skills/quality-engine/references/connect-guide.md) holds the plain-language steps.
 
-For each one it looks for an already-loaded tool, a host connector, the vendor's official MCP server or skill, a CLI or API, and finally a paste-in route. A tool counts as connected only after a read call succeeds. Xray, Datadog, Sentry or any other vendor matters only if your team uses it, and "none, I will paste evidence" is always an option. See the [integrations catalog](skills/quality-engine/references/integrations-catalog.md) for what was checked and when. Some entries are verified, some are community-only, and Segment's official MCP server covers its documentation but not your event data.
+For each one it looks for an already-loaded tool, a host connector, the vendor's official MCP server or skill, a CLI or API, and finally a paste-in route. A tool counts as connected only after a read call succeeds. Xray, Datadog, Sentry or any other vendor matters only if your team uses it, and "none, I will paste evidence" is always an option. See the [integrations catalog](Quality-Engine/skills/quality-engine/references/integrations-catalog.md) for what was checked and when. Some entries are verified, some are community-only, and Segment's official MCP server covers its documentation but not your event data.
 
-**mabl** is reached through the mabl CLI and the hosted cloud MCP server only, together with mabl's own skills at [mablhq/skills](https://github.com/mablhq/skills). The local mabl MCP server is retired and is not used. See the [mabl reference](skills/quality-engine/references/mabl.md).
+**mabl** is reached through the mabl CLI and the hosted cloud MCP server only, together with mabl's own skills at [mablhq/skills](https://github.com/mablhq/skills). The local mabl MCP server is retired and is not used. See the [mabl reference](Quality-Engine/skills/quality-engine/references/mabl.md).
 
 ## Core assessment contract
 
@@ -56,7 +56,7 @@ The six recommended display fields are:
 5. **Automation ROI Level:** Low, Medium, High or Undetermined.
 6. **Coverage Recommendation:** Maintain existing, Update existing, Add targeted tests, Expand regression coverage or Investigate coverage first.
 
-Read the [scoring rubric](skills/qe-analysis/references/scoring-rubric.md), [field mapping](jira/field-mapping.md) and [JSON schema](schemas/feature-quality-assessment.schema.json) before treating scores as standardized across teams. The rubric is a **proposed framework**, not a validated empirical quality metric.
+Read the [scoring rubric](Quality-Engine/skills/qe-analysis/references/scoring-rubric.md), [field mapping](Quality-Engine/jira/field-mapping.md) and [JSON schema](Quality-Engine/schemas/feature-quality-assessment.schema.json) before treating scores as standardized across teams. The rubric is a **proposed framework**, not a validated empirical quality metric.
 
 ## Install
 
@@ -64,16 +64,16 @@ Read the [scoring rubric](skills/qe-analysis/references/scoring-rubric.md), [fie
 | --- | --- | --- |
 | `dist/quality-engine.skill` | The orchestrator with all seven specialists bundled inside | **Recommended.** One install, nothing else needed |
 | `dist/specialists/*.skill` | Each specialist as its own skill | You want a specialist on its own, or to call it from another workflow |
-| `dist/agents/*.md` | Agent definitions for the orchestrator and each specialist | You prefer agents over skills. See [agent mode](skills/quality-engine/references/agent-mode.md) |
+| `dist/agents/*.md` | Agent definitions for the orchestrator and each specialist | You prefer agents over skills. See [agent mode](Quality-Engine/skills/quality-engine/references/agent-mode.md) |
 
-Generate everything with `python scripts/build.py`. The folders under `skills/` are the source of truth; the build derives the rest, so skill and agent never drift. Details are in [INSTALLATION.md](INSTALLATION.md).
+Generate everything with `python scripts/build.py`. The folders under `skills/` are the source of truth; the build derives the rest, so skill and agent never drift. Details are in [INSTALLATION.md](Quality-Engine/INSTALLATION.md).
 
 ## Start here
 
-1. Follow [QUICKSTART.md](QUICKSTART.md) with the fictional example. It needs no integrations.
+1. Follow [QUICKSTART.md](Quality-Engine/QUICKSTART.md) with the fictional example. It needs no integrations.
 2. Run the setup interview with your own tools and save the profile it produces. A skill cannot persist its own settings, so keep `quality-engine.profile.yaml` next to your code.
-3. Leave write-backs off until the read-only output looks right. Each write passes [four gates](skills/quality-engine/references/write-back-gates.md).
-4. Atlassian users can also use the optional [Jira and Rovo adapter](jira/automation-blueprint.md).
+3. Leave write-backs off until the read-only output looks right. Each write passes [four gates](Quality-Engine/skills/quality-engine/references/write-back-gates.md).
+4. Atlassian users can also use the optional [Jira and Rovo adapter](Quality-Engine/jira/automation-blueprint.md).
 
 ## Design principles
 
@@ -88,18 +88,18 @@ Generate everything with `python scripts/build.py`. The folders under `skills/` 
 
 ## Files
 
-- [Portfolio case study](PORTFOLIO-CASE-STUDY.md)
-- [Fictional sample ticket](examples/sample-ticket.md), [example comment](examples/sample-jira-comment.md), [machine-readable assessment](examples/sample-assessment.json)
-- [Profile template](skills/quality-engine/assets/profile-template.yaml)
-- [Evidence packet](skills/quality-engine/references/evidence-packet.md) and [agent contracts](orchestration/agent-contracts.md)
-- [Architecture diagram](orchestration/pipeline.mmd)
-- [Release checklist](RELEASE-CHECKLIST.md)
+- [Portfolio case study](Quality-Engine/PORTFOLIO-CASE-STUDY.md)
+- [Fictional sample ticket](Quality-Engine/examples/sample-ticket.md), [example comment](Quality-Engine/examples/sample-jira-comment.md), [machine-readable assessment](Quality-Engine/examples/sample-assessment.json)
+- [Profile template](Quality-Engine/skills/quality-engine/assets/profile-template.yaml)
+- [Evidence packet](Quality-Engine/skills/quality-engine/references/evidence-packet.md) and [agent contracts](Quality-Engine/orchestration/agent-contracts.md)
+- [Architecture diagram](Quality-Engine/orchestration/pipeline.mmd)
+- [Release checklist](Quality-Engine/RELEASE-CHECKLIST.md)
 
 ## Important caveats
 
 This repo contains **instructions, templates and sample contracts**. It does not include a configured automation rule, an executable integration, a connected agent identity or pre-created custom fields. The integrations catalog is dated and will age; verify a connector before relying on it. The agent definitions are generated templates that have not been tested in a live agent host. Exact automation smart values, edit-field permissions and rich-text rendering must be tested in each organization's tenant.
 
-**Authorship and reuse:** see [NOTICE.md](NOTICE.md). No open-source license is granted by this package yet.
+**Authorship and reuse:** see [NOTICE.md](Quality-Engine/NOTICE.md). No open-source license is granted by this package yet.
 
 ## Reference specifications
 
