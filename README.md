@@ -28,6 +28,15 @@ I also wanted it to answer a question most test tools skip: is this a poor area 
 
 Quality Engine is the **catalyst**: it holds the tool access and makes the decisions. The seven specialists only analyze the evidence packet they are handed, so they can never write to a tracker, test platform or chat tool.
 
+## Architecture
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Quality-Engine/docs/architecture/quality-engine-dark.png">
+  <img alt="Quality Engine workflow diagram" src="Quality-Engine/docs/architecture/quality-engine-light.png">
+</picture>
+
+**[Open the interactive diagram](https://j-m-o.github.io/Quality-Engine/Quality-Engine/docs/architecture/quality-engine.html)** (zoom, focus, trace routes, light and dark). Built with [Archify](https://github.com/tt-a1i/archify) from the typed source in [`docs/architecture/quality-engine.workflow.json`](Quality-Engine/docs/architecture/quality-engine.workflow.json).
+
 ## It starts by asking what you use
 
 No vendor is assumed. On first use Quality Engine asks, in a few multiple-choice questions, which of these you want to continue with:
@@ -92,7 +101,7 @@ Generate everything with `python scripts/build.py`. The folders under `skills/` 
 - [Fictional sample ticket](Quality-Engine/examples/sample-ticket.md), [example comment](Quality-Engine/examples/sample-jira-comment.md), [machine-readable assessment](Quality-Engine/examples/sample-assessment.json)
 - [Profile template](Quality-Engine/skills/quality-engine/assets/profile-template.yaml)
 - [Evidence packet](Quality-Engine/skills/quality-engine/references/evidence-packet.md) and [agent contracts](Quality-Engine/orchestration/agent-contracts.md)
-- [Architecture diagram](Quality-Engine/orchestration/pipeline.mmd)
+- [Architecture diagram (interactive)](https://j-m-o.github.io/Quality-Engine/Quality-Engine/docs/architecture/quality-engine.html) and [Mermaid source](Quality-Engine/orchestration/pipeline.mmd)
 - [Release checklist](Quality-Engine/RELEASE-CHECKLIST.md)
 
 ## Important caveats

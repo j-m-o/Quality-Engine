@@ -18,3 +18,7 @@ No open-source license is granted by this notice. Until one is published, all ri
 ## Third-party names
 
 mabl, Jira, Atlassian, Rovo, Xray, Sentry, Datadog, Honeycomb, Segment, GitHub and other product names belong to their owners. Their appearance here describes optional integrations and does not imply endorsement or affiliation. The `mablhq/skills` repository referenced in this package belongs to mabl and is not part of this work.
+
+## Diagrams
+
+The interactive diagram in `docs/architecture/` was generated with [Archify](https://github.com/tt-a1i/archify), Copyright (c) 2026 tt-a1i and (c) 2025 Cocoon AI, licensed under the Apache License 2.0. The generated HTML file carries Archify's own notice. The diagram source JSON is part of this work.

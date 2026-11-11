@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "2b70c222-9d32-4cb7-a155-3221738eecca",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/claude/quality-engine/Quality-Engine/docs/architecture/quality-engine.workflow.json",
+  "output": "/home/claude/quality-engine/Quality-Engine/docs/architecture/quality-engine.html",
+  "specification": {
+    "sha256": "04b54d8c545bf72baf444ceac60ecf511758bbda4a23c56e4dee92d8a1d4964a",
+    "bytes": 5655
+  },
+  "artifact": {
+    "sha256": "21ca89e6bd05c717b8a4ae3720259c302b473fb546ec82ccd786c1c89fa5076a",
+    "bytes": 850568
+  }
+}

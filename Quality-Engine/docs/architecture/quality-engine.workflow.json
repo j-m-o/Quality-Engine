@@ -1,0 +1,277 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Quality Engine: one orchestrator gathers evidence, specialists analyze, humans approve writes",
+    "output": "docs/architecture/quality-engine.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "lanes": [
+    {
+      "id": "user",
+      "label": "Requester"
+    },
+    {
+      "id": "orch",
+      "label": "Quality Engine (holds tool access)"
+    },
+    {
+      "id": "core",
+      "label": "Core specialists"
+    },
+    {
+      "id": "extra",
+      "label": "On-request specialists"
+    },
+    {
+      "id": "write",
+      "label": "Gated write-back",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "setup",
+      "label": "Set up",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence once",
+      "fromCol": 2,
+      "toCol": 2
+    },
+    {
+      "id": "analyze",
+      "label": "Analyze",
+      "fromCol": 3,
+      "toCol": 4,
+      "variant": "emphasis"
+    },
+    {
+      "id": "deliver",
+      "label": "Deliver",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "item",
+    "profile",
+    "gather",
+    "coverage",
+    "analysis",
+    "report",
+    "gates"
+  ],
+  "nodes": [
+    {
+      "id": "item",
+      "lane": "user",
+      "col": 0,
+      "type": "external",
+      "label": "Work item",
+      "sublabel": "ticket, bug, PR, feature"
+    },
+    {
+      "id": "setup",
+      "lane": "user",
+      "col": 1,
+      "type": "external",
+      "label": "Which tools?",
+      "sublabel": "first run only"
+    },
+    {
+      "id": "profile",
+      "lane": "orch",
+      "col": 1,
+      "type": "backend",
+      "icon": "decision",
+      "label": "Profile saved?",
+      "sublabel": "else setup interview"
+    },
+    {
+      "id": "gather",
+      "lane": "orch",
+      "col": 2,
+      "type": "backend",
+      "label": "Gather evidence",
+      "sublabel": "read-only, with provenance"
+    },
+    {
+      "id": "coverage",
+      "lane": "core",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Coverage Review",
+      "sublabel": "what is covered, what is not"
+    },
+    {
+      "id": "analysis",
+      "lane": "core",
+      "col": 4,
+      "type": "messagebus",
+      "label": "QE Analysis",
+      "sublabel": "readiness, risk, investment"
+    },
+    {
+      "id": "extra",
+      "lane": "extra",
+      "col": 4,
+      "type": "messagebus",
+      "label": "5 on request",
+      "sublabel": "test design, security, a11y, incidents, metrics"
+    },
+    {
+      "id": "report",
+      "lane": "orch",
+      "col": 4,
+      "type": "backend",
+      "label": "Snapshot + report",
+      "sublabel": "unknowns stated plainly"
+    },
+    {
+      "id": "gates",
+      "lane": "orch",
+      "col": 5,
+      "type": "security",
+      "icon": "decision",
+      "label": "Four write gates",
+      "sublabel": "enabled + confirmed?"
+    },
+    {
+      "id": "readonly",
+      "lane": "user",
+      "col": 5,
+      "type": "external",
+      "label": "Read-only result",
+      "sublabel": "default"
+    },
+    {
+      "id": "writes",
+      "lane": "write",
+      "col": 5,
+      "type": "database",
+      "label": "Comment, fields, chat",
+      "sublabel": "test management"
+    }
+  ],
+  "edges": [
+    {
+      "id": "in",
+      "from": "item",
+      "to": "profile",
+      "label": "request",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "id": "no-profile",
+      "from": "profile",
+      "to": "setup",
+      "label": "no",
+      "variant": "dashed",
+      "role": "branch",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "answers",
+      "from": "setup",
+      "to": "gather",
+      "label": "profile",
+      "variant": "dashed"
+    },
+    {
+      "id": "yes-profile",
+      "from": "profile",
+      "to": "gather",
+      "label": "yes",
+      "variant": "default"
+    },
+    {
+      "id": "packet",
+      "from": "gather",
+      "to": "coverage",
+      "label": "packet",
+      "variant": "emphasis"
+    },
+    {
+      "id": "packet-extra",
+      "from": "gather",
+      "to": "extra",
+      "label": "on request",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-a",
+      "from": "coverage",
+      "to": "analysis",
+      "variant": "emphasis"
+    },
+    {
+      "id": "a-r",
+      "from": "analysis",
+      "to": "report",
+      "label": "findings",
+      "variant": "emphasis"
+    },
+    {
+      "id": "x-r",
+      "from": "extra",
+      "to": "analysis",
+      "variant": "dashed",
+      "label": "adds findings"
+    },
+    {
+      "id": "r-g",
+      "from": "report",
+      "to": "gates",
+      "variant": "emphasis"
+    },
+    {
+      "id": "g-w",
+      "from": "gates",
+      "to": "writes",
+      "label": "yes",
+      "variant": "security"
+    },
+    {
+      "id": "g-r",
+      "from": "gates",
+      "to": "readonly",
+      "label": "no",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Catalyst pattern",
+      "items": [
+        "Only Quality Engine holds tool access",
+        "Seven specialists analyze the evidence packet and can never write anywhere"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Vendor-neutral",
+      "items": [
+        "Asks which tools you use; no vendor assumed",
+        "Connector, MCP, CLI or paste-in route for each tool"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Write-back gates",
+      "items": [
+        "Enabled in the profile, previewed, confirmed by a person, and logged",
+        "Default is read-only"
+      ]
+    }
+  ]
+}
