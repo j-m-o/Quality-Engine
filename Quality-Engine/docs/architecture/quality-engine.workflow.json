@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "Quality Engine: one orchestrator gathers evidence, specialists analyze, humans approve writes",
+    "title": "Quality Engine",
     "output": "docs/architecture/quality-engine.html",
     "quality_profile": "showcase",
     "locale": "en"
